@@ -8,4 +8,4 @@ jobs:
     - name: My code
       uses: actions/checkout@v2
     - name: Install packages
-      run: pip install -t •
+      run: pip install -t python
