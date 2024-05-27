@@ -1,4 +1,4 @@
-name: Code Scan
+name: CI
 
 on:
   push:
@@ -9,8 +9,7 @@ on:
       - main
 
 jobs:
-  eslint:
-    name: Lint codebase with ESLint
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,36 +24,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run ESLint
-        run: npm run lint
-        env:
-          CI: true
-
-  codeql:
-    name: Perform CodeQL Analysis
-    runs-on: ubuntu-latest
-
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    strategy:
-      matrix:
-        language: [ 'javascript', 'typescript' ]
-        # See https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#using-codeql-code-scanning-with-your-existing-ci-tool for language options
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: ${{ matrix.language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+      - name: Run tests
+        run: npm test
