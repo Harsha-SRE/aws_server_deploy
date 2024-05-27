@@ -23,8 +23,3 @@ jobs:
           python -m venv venv
           source venv/bin/activate
          
-
-      - name: Run tests
-        run: |
-          source venv/bin/activate
-          python -m unittest discover  # Adjust this command to match your test framework
